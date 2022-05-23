@@ -36,6 +36,12 @@ public class Transition<T, D, S extends Enum<S>, C extends ActionContext<D>, A e
     Class<? extends A> action;
     Set<S> to;
 
+    /**
+     * Helper constructor
+     * @param from State from which the transition will start
+     * @param action Action to be invoked to generate next state
+     * @param to Valid states that the action can generate
+     */
     @SafeVarargs
     public Transition(S from, Class<? extends A> action, S... to) {
         this(from, action, Set.of(to));

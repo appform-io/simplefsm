@@ -29,7 +29,7 @@ public interface ActionFactory<T, D, S extends Enum<S>, C extends ActionContext<
 
     /**
      * Crates an instance of appropriate Action
-     * @param transition Transition for which Action will be created. Class name for action is specified in {@link Transition#getAction()}
+     * @param transition Transition for which Action will be created. Class name for action is specified in {@link Transition}
      * @return A freshly minted action instance
      */
     A create(final Transition<T, D, S, C, A> transition);
