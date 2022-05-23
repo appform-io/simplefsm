@@ -15,11 +15,31 @@
 package io.appform.simplefsm;
 
 /**
+ * Action that will be taken, leading to state transition. Action returns the new state the system will go to. In case
+ * if no transition, it should return the old state.
+ * Note: Action instances will be created at runtime by {@link ActionFactory#create(Transition)} method. This will be
+ * done every time a transition is encountered. Do not expect any kind of persistence. Any persistent data needs to
+ * be stored in external storage or in {@link ActionContext}. Ideally do not let exceptions leak. Catch them and move
+ * to appropriate state and set error message in the returned StateData.
  *
+ * @param <T> Type of the main data object for the SM
+ * @param <S> An enum representing the different states of the state machine
+ * @param <C> Context type for the state machine
+ * @param <D> Type of update to be passed to state machine
  */
-public interface Action<T, R extends Enum<R>, C extends ActionContext<D>, D> {
+public interface Action<T, S extends Enum<S>, C extends ActionContext<D>, D> {
 
-    StateData<R,T> execute(final C context, final StateData<R, T> currentState);
+    /**
+     * Execute the required action which will move the state machine between states
+     *
+     * @param context      The context for this state machine execution
+     * @param currentState Current state of the state machine
+     * @return The new state the system should move to
+     */
+    StateData<S, T> execute(final C context, final StateData<S, T> currentState);
 
+    /**
+     * Stop the current action. It is upto implementer if the action is stoppable or not
+     */
     void stop();
 }

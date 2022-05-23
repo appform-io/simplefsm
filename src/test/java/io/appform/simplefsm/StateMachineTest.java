@@ -74,7 +74,8 @@ class StateMachineTest {
             if (null == update) {
                 return currentState;
             }
-            context.ackUpdate();
+            val ackStatus = context.ackUpdate();
+            log.debug("Ack state: {}", ackStatus);
             return StateData.from(currentState, update.nextState);
         }
 

@@ -15,8 +15,22 @@
 package io.appform.simplefsm;
 
 /**
+ * Generates an {@link Action} instance at runtime.
  *
- */
-public interface ActionFactory<T, D, R extends Enum<R>, C extends ActionContext<D>, A extends Action<T, R, C, D>> {
-    A create(final Transition<T, D, R, C, A> transition);
+ * Note: If actions need parameters, DI system needs to be used in the create method
+ *
+ * @param <T> Type of the main data object for the SM
+ * @param <D> Type of update to be passed to state machine
+ * @param <S> An enum representing the different states of the state machine
+ * @param <C> Context type for the state machine
+ * @param <A> The actual base action type derived from {@link Action}.
+ * */
+public interface ActionFactory<T, D, S extends Enum<S>, C extends ActionContext<D>, A extends Action<T, S, C, D>> {
+
+    /**
+     * Crates an instance of appropriate Action
+     * @param transition Transition for which Action will be created. Class name for action is specified in {@link Transition#getAction()}
+     * @return A freshly minted action instance
+     */
+    A create(final Transition<T, D, S, C, A> transition);
 }

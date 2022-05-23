@@ -20,7 +20,14 @@ import lombok.Value;
 import java.util.Set;
 
 /**
+ * A valid transition in the state machine. The state machine will execute the specified {@link Action} and move to
+ * one of the defined valid output states
  *
+ * @param <T> Type of the main data object for the SM
+ * @param <D> Type of update to be passed to state machine
+ * @param <S> An enum representing the different states of the state machine
+ * @param <C> Context type for the state machine
+ * @param <A> The actual base action type derived from {@link Action}.
  */
 @Value
 @AllArgsConstructor
